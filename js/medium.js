@@ -20,6 +20,11 @@ $(document).ready(function() {
                 playerX = newX;
                 playerY = newY;
                 $('#player').css({ top: playerY + 'px', left: playerX + 'px' });
+                
+                // Change color of square when player runs over it
+                if ($('#maze').find('.square').is('[style="top: ' + newY + 'px; left: ' + newX + 'px;"]')) {
+                    $('#maze').find('.square').filter('[style="top: ' + newY + 'px; left: ' + newX + 'px;"]').css('background-color', 'red');
+                }
             }
 
             // Check to see if the player reaches the end
@@ -54,6 +59,9 @@ $(document).ready(function() {
             for (var x = 0; x < layout[y].length; x++) {
                 if (layout[y][x] === 1) {
                     wallCoordinates.push({ top: y * 20, left: x * 20 });
+                } else {
+                    // Add grey square where there is an empty space
+                    $('#maze').append('<div class="square" style="top: ' + (y * 20) + 'px; left: ' + (x * 20) + 'px;"></div>');
                 }
             }
         }

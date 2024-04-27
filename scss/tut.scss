@@ -1,8 +1,7 @@
 body{
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
-    background-color: black
-
+    background-color: black;
 }
 
 #maze{
@@ -14,8 +13,8 @@ body{
 }
 
 .wall, #start, #end{
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     background-color: black;
     position: absolute;
 }
@@ -25,19 +24,15 @@ body{
 
 #start {
     background-color: green;
-    top: 20px;
-    left: 20px;
+    top: 40px;
+    left: 40px;
 }
 
-#end {
-    background-color: red;
-    top: 780px;
-    left: 780px;
-}
+
 
 .player {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     background-color: blue;
     position: absolute;
 }
