@@ -1,0 +1,46 @@
+body {
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+  background-color: black;
+}
+
+#maze {
+  margin: 20px auto;
+  width: 800px;
+  height: 800px;
+  border: 2px solid black;
+  position: relative;
+}
+
+.wall, #start, #end {
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  position: absolute;
+}
+
+#start {
+  background-color: green;
+  top: 20px;
+  left: 20px;
+}
+
+#end {
+  background-color: red;
+  top: 780px;
+  left: 780px;
+}
+
+.player {
+  width: 20px;
+  height: 20px;
+  background-color: blue;
+  position: absolute;
+}
+
+.square {
+  width: 40px;
+  height: 40px;
+  background-color: grey;
+  position: absolute;
+}/*# sourceMappingURL=easy.css.map */
