@@ -7,6 +7,18 @@ $(document).ready(function() {
     var playerX = 20;
     var playerY = 20;
 
+        // Start the timer
+        function startTimer() {
+            timerInterval = setInterval(function() {
+                timeLeft--;
+                $('#timer').text('Time Left: ' + timeLeft + 's');
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Time's up! You lose.");
+                }
+            }, 1000);
+        }
+
     // Movement Functionality for player
     function movePlayer(dx, dy) {
         var newX = playerX + dx;
@@ -21,10 +33,20 @@ $(document).ready(function() {
                 playerY = newY;
                 $('#player').css({ top: playerY + 'px', left: playerX + 'px' });
                 
-                // Change color of square when player runs over it
+                var colors = ["#ff2d75", "#ff6b9f", "#c40051", "#4fc3dc", "#80e2f3", "#2a9cb6", "#8a22a9", "#b45ccf", "#5c0f82", "#9ad8ea", "#c6eaf3", "#6dbdd6", "#2b9bb2", "#5bc1d7", "#007d91"];
+                var randomIndex = Math.floor(Math.random() * colors.length);
+                var glowColor = colors[randomIndex]; // Get the color for the glowing effect
+                var shadow = "0 0 10px " + glowColor + ", 0 0 20px " + glowColor + ", 0 0 30px " + glowColor + ", 0 0 40px " + glowColor + ", 0 0 50px " + glowColor; // Define box shadow properties for glowing effect
                 if ($('#maze').find('.square').is('[style="top: ' + newY + 'px; left: ' + newX + 'px;"]')) {
-                    $('#maze').find('.square').filter('[style="top: ' + newY + 'px; left: ' + newX + 'px;"]').css('background-color', 'red');
-                }
+                    $('#maze').find('.square').filter('[style="top: ' + newY + 'px; left: ' + newX + 'px;"]')
+                        .css({
+                            'background-color': glowColor,
+                            'box-shadow': shadow // Apply the glowing effect using box shadow
+                        });
+                
+                
+}
+
             }
 
             // Check to see if the player reaches the end
