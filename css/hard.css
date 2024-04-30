@@ -4,13 +4,26 @@ body {
   background-color: black;
 }
 
+@keyframes rotateMaze {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 #maze {
   margin: 20px auto;
   width: 800px;
   height: 800px;
   border: 2px solid black;
   position: relative;
+  animation: rotateMaze 20s linear infinite;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
+
 
 .wall, #start, #end {
   width: 20px;
@@ -19,7 +32,7 @@ body {
   position: absolute;
 }
 
-#start {
+/* #start {
   background-color: green;
   top: 20px;
   left: 20px;
@@ -29,7 +42,7 @@ body {
   background-color: red;
   top: 780px;
   left: 780px;
-}
+} */
 
 .player {
   width: 20px;
