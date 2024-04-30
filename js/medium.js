@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    let fuhuhluhtoogan = new Audio("./assets/jitleyang.mp3")
     // Maze Size/Dimensions
     var mazeHeight = 800;
     var mazeWidth = 800;
