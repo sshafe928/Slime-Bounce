@@ -20,9 +20,9 @@ body {
   border: 2px solid black;
   position: relative;
   animation: rotateMaze 20s linear infinite;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
 }
+
 
 
 .wall, #start, #end {
@@ -59,3 +59,13 @@ body {
   background-color: grey;
   position: absolute;
 }/*# sourceMappingURL=hard.css.map */
+
+#timerContainer {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
