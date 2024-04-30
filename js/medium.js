@@ -49,9 +49,11 @@ $(document).ready(function() {
                 $('.player').css('background-image', 'url("./images/front.png")');
             }, 150);
         } else if (dy < 0) { // Moving up
-            $('.player').css('background-image', 'url("./images/front.png")');
+            $('.player').css('background-image', 'url("./images/back.png")');
+            setTimeout(function() {
+                $('.player').css('background-image', 'url("./images/front.png")');
+            }, 150);
         }
-
         // Verify new position is inside of the maze walls
         if (newX >= 0 && newX < mazeWidth && newY >= 0 && newY < mazeHeight) {
             // Check to see if the new position is a wall or not

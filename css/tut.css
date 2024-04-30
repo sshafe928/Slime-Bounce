@@ -30,6 +30,8 @@ body {
   height: 40px;
   background-image: url("../images/front.png");
   position: absolute;
+  background-position: center;
+  background-size: cover;
 }
 
 .square {
