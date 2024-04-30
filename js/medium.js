@@ -32,6 +32,26 @@ $(document).ready(function() {
         var newX = playerX + dx;
         var newY = playerY + dy;
 
+        // Change sprite image based on direction
+        if (dx > 0) { // Moving right
+            $('.player').css('background-image', 'url("./images/right.png")');
+            setTimeout(function() {
+                $('.player').css('background-image', 'url("./images/front.png")');
+            }, 150); // 5000 milliseconds = 5 seconds
+        } else if (dx < 0) { // Moving left
+            $('.player').css('background-image', 'url("./images/left.png")');
+            setTimeout(function() {
+                $('.player').css('background-image', 'url("./images/front.png")');
+            }, 150);
+        } else if (dy > 0) { // Moving down
+            $('.player').css('background-image', 'url("./images/back.png")');
+            setTimeout(function() {
+                $('.player').css('background-image', 'url("./images/front.png")');
+            }, 150);
+        } else if (dy < 0) { // Moving up
+            $('.player').css('background-image', 'url("./images/front.png")');
+        }
+
         // Verify new position is inside of the maze walls
         if (newX >= 0 && newX < mazeWidth && newY >= 0 && newY < mazeHeight) {
             // Check to see if the new position is a wall or not
