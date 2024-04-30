@@ -15,6 +15,17 @@ $(document).ready(function() {
         var newX = playerX + dx;
         var newY = playerY + dy;
 
+        // Change sprite image based on direction
+        if (dx > 0) { // Moving right
+            $('#player').css('background-image', 'url("./images/right.png")');
+        } else if (dx < 0) { // Moving left
+            $('#player').css('background-image', 'url("./images/left.png")');
+        } else if (dy > 0) { // Moving down
+            $('#player').css('background-image', 'url("./images/down.png")');
+        } else if (dy < 0) { // Moving up
+            $('#player').css('background-image', 'url("./images/up.png")');
+        }
+
         // Verify new position is inside of the maze walls
         if (newX >= 0 && newX < mazeWidth && newY >= 0 && newY < mazeHeight) {
             // Check to see if the new position is a wall or not
