@@ -127,7 +127,7 @@ if ($('#maze').find('.end-location').is('[style="top: ' + newY + 'px; left: ' + 
         clearInterval(spriteInterval);
         $('#player-sprite').attr('src', './images/victory_sprite.png');
         alert("Congratulations! You've reached the end.\nYour score: " + score);
-        window.location.href = "index2.html";
+        window.location.href = "index.html";
     }, 1000);
 }
 
