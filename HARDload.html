@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOAD</title>
+    <link rel="stylesheet" href="./css/styling.css"></head>
+<body>
+    <div class="loader">
+        <div class="round">Loading</div> 
+    </div>
+
+    <script>
+        setTimeout(function() {
+            var loaderDiv = document.querySelector('.loader');
+            loaderDiv.innerHTML = '<a href="#" style="--clr:#fff" class="button" id="continueButton"><span>Continue</span><i></i></a>';
+            document.getElementById('continueButton').addEventListener('click', function(event) {
+                event.preventDefault();
+                var audio = new Audio('./sounds/dark-souls-ii-parry-sound-effect.mp3');
+                audio.play();
+                setTimeout(function() {
+                    window.location.href = './hard.html';
+                }, 2000);
+            });
+        }, 3000);
+    </script> 
+</body>
+</html>

@@ -1,32 +1,62 @@
 $(document).ready(function() {
-    let fuhuhluhtoogan = new Audio("./assets/jitleyang.mp3")
     // Maze Size/Dimensions
     var mazeHeight = 800;
-    var mazeWidth = 800;
+    var mazeWidth = 600;
 
-    // Player starting position
     var playerX = 20;
     var playerY = 20;
 
-    // Timer variables
-    var timeLeft = 120; // Set the initial time in seconds
+    var timeLeft = 120;
     var timerInterval;
 
-    // Start the timer
-    startTimer();
+   // Start the timer
+startTimer();
 
-    function startTimer() {
-        timerInterval = setInterval(function() {
-            timeLeft--;
-            $('#timeLeft').text(timeLeft);
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
+function startTimer() {
+    var timerInterval;
+    var audio;
+
+    timerInterval = setInterval(function() {
+        timeLeft--;
+        $('#timeLeft').text(timeLeft);
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            audio = new Audio('./sounds/Dark Souls - You Died (Sound Effect).mp3');
+            audio.play();
+            setTimeout(function() {
                 alert("Time's up! You lose.");
                 location.reload();
+            }, 1000);
+        }
+    }, 1000);
+}
 
-            }
-        }, 1000);
+
+   // Movement Functionality for player
+function movePlayer(dx, dy) {
+    var newX = playerX + dx;
+    var newY = playerY + dy;
+
+       // Verify new position is inside of the maze walls
+    if (newX >= 0 && newX < mazeWidth && newY >= 0 && newY < mazeHeight) {
+        if ($('#maze').find('.end-location').is('[style="top: ' + newY + 'px; left: ' + newX + 'px;"]')) {
+               clearInterval(timerInterval); // Stop the timer
+
+               // Calculate the score based on the time taken
+            var score = calculateScore(timeLeft);
+            alert("Congratulations! You've reached the end.\nYour score: " + score);
+        }
     }
+}
+
+   // Function to calculate the score based on the time taken
+function calculateScore(time) {
+       // The score is inversely proportional to the time taken
+       // You can adjust the formula as needed
+       var score = Math.round(10000 / (120 - time)); // Adjust this formula as needed
+    return score;
+}
 
     // Movement Functionality for player
     function movePlayer(dx, dy) {
@@ -55,6 +85,7 @@ $(document).ready(function() {
                 $('.player').css('background-image', 'url("./images/front.png")');
             }, 150);
         }
+
         // Verify new position is inside of the maze walls
         if (newX >= 0 && newX < mazeWidth && newY >= 0 && newY < mazeHeight) {
             // Check to see if the new position is a wall or not
@@ -80,28 +111,45 @@ $(document).ready(function() {
 
             // Check if the player reaches the end
             if ($('#maze').find('.end-location').is('[style="top: ' + newY + 'px; left: ' + newX + 'px;"]')) {
-                clearInterval(timerInterval); // Stop the timer
-                alert("Congratulations! You've reached the end.");
-                location.reload();
+                clearInterval(timerInterval);
+                var score = calculateScore(timeLeft);
+                var audio = new Audio('./sounds/coins_Yq2GFZQ.mp3');
+                audio.play();
+                setTimeout(function() {
+                    alert("Congratulations! You've reached the end.\nYour score: " + score);
+                    window.location.href = "index3.html";
+                }, 1000);
             }
+            
+            
         }
     }
 
     // Keypress Event Listener
     $(document).keydown(function(e) {
+        var audio;
+
         switch (e.which) {
-            case 37: // Left arrow
+            case 37:
                 movePlayer(-20, 0);
+                audio = new Audio('./sounds/slimejump-6913.mp3');
                 break;
-            case 38: // Up arrow
+            case 38:
                 movePlayer(0, -20);
+                audio = new Audio('./sounds/slimejump-6913.mp3');
                 break;
-            case 39: // Right arrow
+            case 39:
                 movePlayer(20, 0);
+                audio = new Audio('./sounds/slimejump-6913.mp3');
                 break;
-            case 40: // Down arrow
+            case 40:
                 movePlayer(0, 20);
+                audio = new Audio('./sounds/slimejump-6913.mp3');
                 break;
+        }
+    
+        if (audio) {
+            audio.play();
         }
     });
 
@@ -123,6 +171,7 @@ $(document).ready(function() {
         return wallCoordinates;
     }
 
+//medium
     var mazeLayout = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
@@ -137,7 +186,7 @@ $(document).ready(function() {
         [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1],
         [1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1],
         [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
         [1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1],
         [1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1],
@@ -162,18 +211,20 @@ $(document).ready(function() {
         [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]    
     ];
 
-    // Create Maze Walls from layout
+
     var wallCoordinates = generateWallsFromLayout(mazeLayout);
     for (var i = 0; i < wallCoordinates.length; i++) {
-        $('#maze').append('<div class="wall" style="top: ' + wallCoordinates[i].top + 'px; left: ' + wallCoordinates[i].left + 'px;"></div>');
+        var $wall = $('<div class="wall" style="top: ' + wallCoordinates[i].top + 'px; left: ' + wallCoordinates[i].left + 'px;"></div>');
+        $('#maze').append($wall);
+        $wall.hide().fadeIn(1500);
     }
 
     // Create the player and append it to the board
     $('#maze').append('<div class="player" id="player" style="top: ' + playerY + 'px; left: ' + playerX + 'px;"></div>');
+
 
 });
