@@ -47,8 +47,10 @@ body {
 .player {
   width: 20px;
   height: 20px;
-  background-color: blue;
+  background-image: url("../images/front.png");
   position: absolute;
+  background-position: center;
+  background-size: cover;
 }
 
 .square {

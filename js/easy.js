@@ -6,8 +6,11 @@ $(document).ready(function() {
     // Player starting position
     var playerX = 40;
     var playerY = 40;
-
+    var timeLeft = 60; // Set the initial time in seconds
+    var timerInterval;
         // Start the timer
+        startTimer();
+
         function startTimer() {
             timerInterval = setInterval(function() {
                 timeLeft--;
@@ -15,6 +18,8 @@ $(document).ready(function() {
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
                     alert("Time's up! You lose.");
+                    location.reload();
+
                 }
             }, 1000);
         }
@@ -23,6 +28,29 @@ $(document).ready(function() {
     function movePlayer(dx, dy) {
         var newX = playerX + dx;
         var newY = playerY + dy;
+
+        // Change sprite image based on direction
+        if (dx > 0) { // Moving right
+            $('.player').css('background-image', 'url("./images/right.png")');
+            setTimeout(function() {
+                $('.player').css('background-image', 'url("./images/front.png")');
+            }, 150); // 5000 milliseconds = 5 seconds
+        } else if (dx < 0) { // Moving left
+            $('.player').css('background-image', 'url("./images/left.png")');
+            setTimeout(function() {
+                $('.player').css('background-image', 'url("./images/front.png")');
+            }, 150);
+        } else if (dy > 0) { // Moving down
+            $('.player').css('background-image', 'url("./images/back.png")');
+            setTimeout(function() {
+                $('.player').css('background-image', 'url("./images/front.png")');
+            }, 150);
+        } else if (dy < 0) { // Moving up
+            $('.player').css('background-image', 'url("./images/back.png")');
+            setTimeout(function() {
+                $('.player').css('background-image', 'url("./images/front.png")');
+            }, 150);
+        }
 
         // Verify new position is inside of the maze walls
         if (newX >= 0 && newX < mazeWidth && newY >= 0 && newY < mazeHeight) {
@@ -50,8 +78,10 @@ $(document).ready(function() {
             }
 
             // Check to see if the player reaches the end
-            if (playerX === mazeWidth - 40 && playerY === mazeHeight - 40) {
-                alert("Congratulations you made it through the maze!");
+            if ($('#maze').find('.end-location').is('[style="top: ' + newY + 'px; left: ' + newX + 'px;"]')) {
+                clearInterval(timerInterval); // Stop the timer
+                alert("Congratulations! You've reached the end.");
+                location.reload();
             }
         }
     }
@@ -81,6 +111,8 @@ $(document).ready(function() {
             for (var x = 0; x < layout[y].length; x++) {
                 if (layout[y][x] === 1) {
                     wallCoordinates.push({ top: y * 40, left: x * 40 });
+                } else if (layout[y][x] === 2) {
+                    $('#maze').append('<div class="end-location" style="top: ' + (y * 40) + 'px; left: ' + (x * 40) + 'px;"></div>');
                 } else {
                     // Add grey square where there is an empty space
                     $('#maze').append('<div class="square" style="top: ' + (y * 40) + 'px; left: ' + (x * 40) + 'px;"></div>');
@@ -92,7 +124,7 @@ $(document).ready(function() {
 
     // Maze layout as a grid of 1s and 0s
     var mazeLayout = [
-        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
         [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1],
         [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1],
