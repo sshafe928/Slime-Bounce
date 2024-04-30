@@ -21,6 +21,8 @@ $(document).ready(function() {
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 alert("Time's up! You lose.");
+                location.reload();
+
             }
         }, 1000);
     }
@@ -57,6 +59,7 @@ $(document).ready(function() {
             if ($('#maze').find('.end-location').is('[style="top: ' + newY + 'px; left: ' + newX + 'px;"]')) {
                 clearInterval(timerInterval); // Stop the timer
                 alert("Congratulations! You've reached the end.");
+                location.reload();
             }
         }
     }
