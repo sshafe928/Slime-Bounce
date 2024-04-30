@@ -13,6 +13,32 @@ body{
     background: #0c192c;
     flex-direction: column;
     gap: 60px;
+    
+}
+
+h1 {
+    font-size: 9em; /* Adjust the font size to make it bigger */
+    text-align: center; /* Center the text */
+    font-family: 'Roboto', sans-serif; /* Change the font family to a cool font */
+    color: transparent; /* Set the text color to transparent to apply glow effect */
+    text-shadow: 0 0 5px rgba(79, 195, 220, 0.8), /* Glow effect with colors from the page */
+                0 0 10px rgba(255, 45, 117, 0.8),
+                0 0 20px rgba(138, 34, 169, 0.8);
+    animation: glow 2s ease-in-out infinite alternate; /* Apply animation for glowing effect */
+    margin-bottom: 10px;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px rgba(79, 195, 220, 0.8), /* Initial glow effect colors */
+                    0 0 10px rgba(255, 45, 117, 0.8),
+                    0 0 20px rgba(138, 34, 169, 0.8);
+    }
+    to {
+        text-shadow: 0 0 0px rgba(79, 195, 220, 0.8), /* Glowing effect colors */
+                    0 0 15px rgba(255, 45, 117, 0.8),
+                    0 0 25px rgba(138, 34, 169, 0.8);
+    }
 }
 
 .containter{
